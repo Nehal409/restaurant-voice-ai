@@ -28,7 +28,7 @@ const Navbar = () => {
               </a>
             </li>
             <li>
-              <a className="nav-link page-scroll" href="#contact">
+              <a className="nav-link page-scroll" href="#reservation">
                 Reservation
               </a>
             </li>

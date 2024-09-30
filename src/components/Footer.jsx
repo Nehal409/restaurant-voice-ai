@@ -16,7 +16,7 @@ const Footer = () => {
         <div className="social-container">
           <span className="fa-stack">
             <a
-              href="https://www.linkedin.com/your-profile"
+              href="https://www.linkedin.com/company/ehsaan-tech/"
               target="_blank"
               rel="noreferrer"
             >
@@ -26,7 +26,7 @@ const Footer = () => {
           </span>
           <span className="fa-stack">
             <a
-              href="https://www.yourpersonalwebsite.com"
+              href="https://ehsaantech.com/"
               target="_blank"
               rel="noreferrer"
             >
@@ -36,7 +36,7 @@ const Footer = () => {
           </span>
           <span className="fa-stack">
             <a
-              href="https://www.upwork.com/freelancers/yourprofile"
+              href="https://www.upwork.com/freelancers/~0135541721e9e39234"
               target="_blank"
               rel="noreferrer"
             >
@@ -46,7 +46,7 @@ const Footer = () => {
           </span>
           <span className="fa-stack">
             <a
-              href="https://www.yourblogsite.com"
+              href="https://dev.to/ehsaantech"
               target="_blank"
               rel="noreferrer"
             >

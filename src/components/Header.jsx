@@ -13,7 +13,7 @@ const Header = () => {
             Welcome to Ehsaan restaurant. Reserve your table effortlessly. We
             are here to help you find the perfect dining time.
           </p>
-          <a className="btn-solid-lg" href="#contact">
+          <a className="btn-solid-lg" href="#reservation">
             Book Your Reservation
           </a>
         </div>
