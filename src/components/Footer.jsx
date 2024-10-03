@@ -8,9 +8,9 @@ const Footer = () => {
           services to its customers across the Globe.{" "}
           <a
             className="text-indigo-600 hover:text-gray-500"
-            href="mailto:haroon@ehsaantech.com"
+            href="mailto:info@ehsaantech.com"
           >
-            haroon@ehsaantech.com
+            info@ehsaantech.com
           </a>
         </h4>
         <div className="social-container">
@@ -32,16 +32,6 @@ const Footer = () => {
             >
               <i className="fas fa-circle fa-stack-2x"></i>
               <i className="fas fa-globe fa-stack-1x"></i>
-            </a>
-          </span>
-          <span className="fa-stack">
-            <a
-              href="https://www.upwork.com/freelancers/~0135541721e9e39234"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <i className="fas fa-circle fa-stack-2x"></i>
-              <i className="fas fa-briefcase fa-stack-1x"></i>
             </a>
           </span>
           <span className="fa-stack">
