@@ -1,9 +1,9 @@
 import Copyright from "./components/Copyright";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import Introduction from "./components/Introduction";
 import Navbar from "./components/Navbar";
 import ReservationForm from "./components/ReservationForm";
+import Clients from "./components/Clients";
 import "./css/fontawesome-all.css";
 import "./css/magnific-popup.css";
 import "./css/styles.css";
@@ -13,7 +13,7 @@ function App() {
     <div>
       <Navbar />
       <Header />
-      <Introduction />
+      <Clients />
       <ReservationForm />
       <Footer />
       <Copyright />

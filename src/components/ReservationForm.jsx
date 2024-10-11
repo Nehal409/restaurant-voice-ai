@@ -1,84 +1,90 @@
-import { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState, useEffect } from "react";
+import { AiOutlineClose } from "react-icons/ai";
+import toast from "react-hot-toast";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-const ReservationForm = () => {
+const ReservationForm = ({ isVoiceOpen, onClose }) => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if (isVoiceOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [isVoiceOpen]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`${baseUrl}/voice-agent/calls/restaurant`, {
+      const response = await fetch(`${baseUrl}/voice-agent/calls/hospital`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: email,
-          phone: phone,
+          email,
+          phone,
         }),
       });
 
       if (response.ok) {
-        setMessage(
-          "Reservation request sent successfully. The AI voice agent will contact you soon!"
+        toast.success(
+          "Appointment request sent successfully. The AI voice agent will contact you soon!"
         );
+        onClose();
       } else {
         const errorData = await response.json();
-        setMessage(`Failed to send reservation request: ${errorData.message}`);
+        toast.error(`Failed to send appointment request: ${errorData.message}`);
       }
     } catch (error) {
-      setMessage(`Error occurred: ${error.message}`);
+      toast.error(`Error occurred: ${error.message}`);
     } finally {
       setIsSubmitting(false);
       setEmail("");
       setPhone("");
-      event.target.reset();
+      e.target.reset();
+    }
+  };
+
+  const handleOverlayClick = (e) => {
+    if (e.target.id === "overlay") {
+      onClose();
     }
   };
 
   return (
-    <div id="reservation" className="py-24 text-center">
-      <div className="container mx-auto px-4 sm:px-8 xl:px-4">
-        <div className="card mx-auto max-w-3xl p-8 bg-blue-50 border border-gray-200 shadow-md rounded-lg">
-          <div className="card-body">
-            <h5 className="text-2xl font-bold mb-4 text-center">
-              Book Your Reservation
-            </h5>
-            <p className="mb-8 text-center">
-              Please fill out the form below to book a reservation through
-              Ehsaan Voice AI. Our AI voice agent will contact you shortly to
-              confirm the details.
-            </p>
+    <div>
+      {isVoiceOpen && (
+        <div
+          id="overlay" 
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 mt-12"
+          onClick={handleOverlayClick} 
+        >
+          <div className="bg-blue-50 border border-gray-200 shadow-md rounded-lg p-8 max-w-md w-full h-[50vh] relative overflow-hidden">
+           
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 text-gray-700 hover:text-gray-900"
+            >
+              <AiOutlineClose size={14} />
+            </button>
 
-            {message && (
-              <p className="mb-4 text-center text-green-500">{message}</p>
-            )}
+            <h5 className="text-2xl font-bold mb-4 text-center">
+              Book An Appointment
+            </h5>
 
             <form id="contactForm" onSubmit={handleSubmit}>
-              <div className="mb-6">
-                <label
-                  htmlFor="phone"
-                  className="block text-gray-700 text-left mb-2"
-                >
-                  Phone
-                </label>
-                <input
-                  type="tel"
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                  id="phone"
-                  placeholder="Enter your phone number"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  required
-                />
-              </div>
-
               <div className="mb-6">
                 <label
                   htmlFor="email"
@@ -97,19 +103,37 @@ const ReservationForm = () => {
                 />
               </div>
 
+              <div className="mb-6">
+                <label
+                  htmlFor="phone"
+                  className="block text-gray-700 text-left mb-2"
+                >
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  id="phone"
+                  placeholder="Enter your phone number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  required
+                />
+              </div>
+
               <div className="text-center">
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-500"
+                  className="btn-solid-lg"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Submitting..." : "Book Reservation"}
+                  {isSubmitting ? "Submitting..." : "Voice AI Demo Call"}
                 </button>
               </div>
             </form>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
